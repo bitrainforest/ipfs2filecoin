@@ -24,7 +24,7 @@ OPTIONS:
 
 启动命令样例:
 ```shell
-./ipfs2filecoin -c bafybeiajbpkbr7otgs5fnsles45kbfyld5bvieiufkl2ajh2buvtks2pci -m f01000 -i https://dweb.link
+./ipfs2filecoin -m f01000 -i https://dweb.link
 ```
 
 #### API
