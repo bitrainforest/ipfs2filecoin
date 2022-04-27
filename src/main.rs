@@ -47,7 +47,7 @@ struct DealCMD {
     car_size: usize,
     piece_size: usize,
     payload_cid: String,
-    storage_price_per_epoch: usize,
+    storage_price: usize,
     verified: bool,
 }
 
@@ -173,8 +173,8 @@ async fn deal(mut cmd: DealCMD) -> anyhow::Result<DealRes> {
             .args(["--piece-size", &cmd.piece_size.to_string()])
             .args(["--payload-cid", &cmd.payload_cid])
             .args([
-                "--storage-price-per-epoch",
-                &cmd.storage_price_per_epoch.to_string(),
+                "storage-price",
+                &cmd.storage_price.to_string(),
             ])
             .arg(format!("--verified={}", cmd.verified))
             .output()
@@ -186,9 +186,9 @@ async fn deal(mut cmd: DealCMD) -> anyhow::Result<DealRes> {
             if err.contains("storage price per epoch less than asking price") {
                 let str = err.split(':').last().ok_or_else(|| anyhow!(err.clone()))?;
                 let str = str.trim();
-                let storage_price_per_epoch: String =
-                    sscanf::scanf!(str, "0 < {}", String).map_err(|_| anyhow!(err.clone()))?;
-                cmd.storage_price_per_epoch =
+                let storage_price_per_epoch =
+                    sscanf::scanf!(str, "0 < {}", str).map_err(|_| anyhow!(err.clone()))?;
+                cmd.storage_price =
                     usize::from_str(storage_price_per_epoch.trim()).map_err(|_| anyhow!(err))?;
                 continue;
             } else {
@@ -263,7 +263,7 @@ async fn handler(cid: String) -> Result<Json, Rejection> {
             car_size: commp.car_file_size,
             piece_size: commp.piece_size,
             payload_cid: cid,
-            storage_price_per_epoch: 0,
+            storage_price: 1,
             verified: false,
         };
 
