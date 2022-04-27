@@ -3,8 +3,8 @@
 
 ### 使用
 #### 依赖
-1. `FULLNODE_API_INFO`全局变量
-2. `boost`, `boostx`全局变量
+1. `FULLNODE_API_INFO`环境变量
+2. `boost, boostx`环境变量
 3. 确保boost已经完成初始化
 
 #### 命令

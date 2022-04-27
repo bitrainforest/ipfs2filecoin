@@ -7,7 +7,6 @@ use std::str::FromStr;
 
 use anyhow::anyhow;
 use clap::Parser;
-use log::info;
 use serde::Serialize;
 use tempfile::NamedTempFile;
 use tokio::fs::File;
@@ -278,13 +277,14 @@ async fn handler(cid: String) -> Result<Json, Rejection> {
 #[tokio::main]
 async fn main() {
     set_args(Args::parse());
-    env_logger::init();
+    env_logger::init_from_env(
+        env_logger::Env::default().filter_or(env_logger::DEFAULT_FILTER_ENV, "info"),
+    );
 
     let promote = warp::post()
         .and(warp::path("put"))
         .and(warp::path::param())
         .and_then(handler);
 
-    info!("Listening on http://{}", get_args().listen_addr);
     warp::serve(promote).run(get_args().listen_addr).await
 }
