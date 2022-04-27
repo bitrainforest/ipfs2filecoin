@@ -36,7 +36,7 @@ curl -X POST http://127.0.0.1:8888/put/bafybeiflwdj2x5ymjdn5ww2sgzoefcvzdnko4bri
 
 预期返回结果:
 
-`HTTP RESPOSE CODE 200`
+`HTTP RESPONSE CODE 200`
 ```json
 {
     "deal_uuid": "58a12e34-e0f4-4fe6-ba0e-1d7ce4fd7d85",
