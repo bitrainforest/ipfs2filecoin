@@ -24,10 +24,7 @@ struct Args {
     /// IPFS gateway
     #[clap(short, long, default_value_t = String::from("https://ipfs.io"))]
     ipfs_gateway: String,
-    /// IPFS CID
-    #[clap(short, long)]
-    cid: String,
-    /// Miner id, multiple comma separated
+    /// Miner id
     #[clap(short, long)]
     miner_id: String,
 }
